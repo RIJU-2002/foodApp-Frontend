@@ -1,7 +1,9 @@
 import { Create, Delete } from '@mui/icons-material'
 import { Box, Card, CardActions, CardHeader, IconButton, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import CreateCategoryForm from './CreateCategoryForm'
+import { useDispatch, useSelector } from 'react-redux'
+import { getIngredientsCategory, updateStockOfIngredient } from '../../components/State/Ingredients/Action'
 
 const category=[1,1,1,1]
 const style = {
@@ -16,9 +18,16 @@ const style = {
     p: 4,
   };
 const IngredientCategoryTable = () => {
+    const {resturant,ingredients}=useSelector(store=>store);
+    const jwt=localStorage.getItem("jwt");
+    const dispatch=useDispatch();
     const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  console.log("ingredients:",ingredients);
+  useEffect(()=>{
+    dispatch(getIngredientsCategory({id:resturant.usersResturant?.id,jwt:jwt}));
+  },[])
   return (
       <Box>
         <Card className='mt-5'>
@@ -40,15 +49,15 @@ const IngredientCategoryTable = () => {
                     </TableRow>
                     </TableHead>
                     <TableBody>
-                        {category.map((row) => (
+                        {ingredients.category.map((row) => (
                         <TableRow
                         key={row.name}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                         <TableCell component="th" scope="row">
-                            {1}
+                            {row.id}
                         </TableCell>
-                        <TableCell align="left">{"name"}</TableCell>
+                        <TableCell align="left">{row.name}</TableCell>
                         </TableRow>
                     ))}
                     </TableBody>

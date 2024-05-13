@@ -7,6 +7,7 @@ import { updateResturantStatus } from '../../components/State/Resturant/Action'
 const Details = () => {
   const {resturant}=useSelector((store=>store));
   const dispatch=useDispatch();
+  console.log("resturant details:",resturant);
   const handleResturantStatus=()=>{
     dispatch(updateResturantStatus({resturantId:resturant.usersResturant.id,jwt:localStorage.getItem("jwt")}))
   }
