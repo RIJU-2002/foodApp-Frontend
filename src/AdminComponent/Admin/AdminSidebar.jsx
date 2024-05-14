@@ -26,10 +26,10 @@ const menu=[
         icon:<Fastfood/>,
         path:'/ingredients'
     },
-    {title:"Event",
-    icon:<Event/>,
-    path:'/event'
-    },
+    // {title:"Event",
+    // icon:<Event/>,
+    // path:'/event'
+    // },
     {title:"Details",
     icon:<AdminPanelSettings/>,
     path:'/details'
@@ -54,7 +54,6 @@ const AdminSidebar = ({handleClose}) => {
     }
   return (
     <div>
-      <>
       <Drawer onClose={handleClose} variant={isSmallScreen?"temporary":"permanent"} open={true} anchor='left' sx={{zIndex:1}}>
         <div className='w-[70vw] lg:w-[20vw] h-screen flex-col justify-center text-xl space-y-[1.65rem]'>
             {menu.map((item,i)=>
@@ -67,7 +66,6 @@ const AdminSidebar = ({handleClose}) => {
             </>)}
         </div>
       </Drawer>
-      </>
     </div>
   )
 }

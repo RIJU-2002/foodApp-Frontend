@@ -4,6 +4,8 @@ import CreateEvent from './CreateEvent';
 import dayjs from 'dayjs';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
+import { useDispatch, useSelector } from 'react-redux';
+import { createEventAction } from '../../components/State/Resturant/Action';
 
 const style = {
   position: 'absolute',
@@ -28,9 +30,26 @@ const Events = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [formValues,setFormValues]=useState(initialValues)
+  const dispatch=useDispatch();
+  const jwt=localStorage.getItem("jwt")
+  const {resturant}=useSelector(store=>store);
+
+  const filterKeys = (obj, exclude) => {
+    return Object.fromEntries(
+      Object.entries(obj).filter(([key]) => !exclude.includes(key))
+    );
+  };
+
   const handleSubmit=(e)=>{
     e.preventDefault()
+    const filteredData = filterKeys(formValues, ["startedAt", "endsAt"]);
+    console.log("edited submit",filteredData);
     console.log("submit",formValues)
+    dispatch(createEventAction({
+      data:filteredData,
+      resturantId:resturant.usersResturant.id,
+      jwt:jwt
+    }))
     setFormValues(initialValues)
   }
   const handleFormChange=(e)=>{

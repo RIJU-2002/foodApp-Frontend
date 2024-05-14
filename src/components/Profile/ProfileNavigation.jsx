@@ -6,18 +6,20 @@ import PaymentIcon from '@mui/icons-material/Payment';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import LogoutIcon from '@mui/icons-material/Logout';
 import EventIcon from '@mui/icons-material/Event';
-import { Divider, Drawer, useMediaQuery } from '@mui/material';
+import { Avatar, Divider, Drawer, useMediaQuery } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../State/Authentication/Action';
+import Person2Icon from '@mui/icons-material/Person2';
 
 const menu=[
+    {title:"Profile",icon:<Person2Icon/>},
     {title:"Orders",icon:<ShoppingBasketIcon/>},
     {title:"Favourites",icon:<FavoriteIcon/>},
     {title:"Address",icon:<LocationOnIcon/>},
-    {title:"Payments",icon:<PaymentIcon/>},
-    {title:"Notification",icon:<NotificationsIcon/>},
-    {title:"Events",icon:<EventIcon/>},
+    // {title:"Payments",icon:<PaymentIcon/>},
+    // {title:"Notification",icon:<NotificationsIcon/>},
+    // {title:"Events",icon:<EventIcon/>},
     {title:"Logout",icon:<LogoutIcon/>},
 ]
 const ProfileNavigation = ({open,handleClose}) => {
@@ -31,6 +33,9 @@ const ProfileNavigation = ({open,handleClose}) => {
         dispatch(logout());
         navigate("/");
       }
+      else if(item.title==='Profile'){
+        navigate(`/my-profile`)
+      }
       else{
         navigate(`/my-profile/${item.title.toLowerCase()}`)
       }
@@ -42,7 +47,7 @@ const ProfileNavigation = ({open,handleClose}) => {
       open={isSmallScreen?open:true} 
       anchor="left" 
       sx={{zIndex:1,position:"sticky"}}>
-        <div className='w-[50vw] lg:w-[20vw] h-[100vh] flex flex-col justify-center text-xl gap-8 pt-16'>
+        <div className='w-[50vw] lg:w-[20vw] h-[100vh] flex flex-col justify-center text-xl gap-8'>
           {menu.map((item,i)=><>
           <div onClick={()=>handleNavigate(item)} className='px-5 flex items-center space-x-5 cursor-pointer'>
             {item.icon}
