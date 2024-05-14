@@ -17,16 +17,24 @@ const menuItemReducer =(state=initialState,action)=>{
         case actionTypes.SEARCH_MENU_ITEM_REQUEST:
         case actionTypes.UPDATE_MENU_ITEM_AVAILABILITY_REQUEST:
             return{
+               ...state,
+               loading:true,
+               error:null,
+               message:null,
+            };
+        case actionTypes.CREATE_MENU_ITEM_SUCCESS:
+            return{
                 ...state,
                 loading:false,
                 menuItems:[...state.menuItems,action.payload],
                 message:"Food Created Successfully"
-            };
+            }
         case actionTypes.GET_MENU_ITEM_BY_RESTURANT_ID_SUCCESS:
             return{
                 ...state,
                 loading:false,
                 menuItems:action.payload,
+                message:"Success in retrieving menu"
             };
         case actionTypes.DELETE_MENU_ITEM_SUCCESS:
             return{
@@ -35,6 +43,7 @@ const menuItemReducer =(state=initialState,action)=>{
                 menuItems:state.menuItems.filter(
                     (menuItem)=>menuItem.id !== action.payload
                 ),
+                message:"Success in delete menu"
             };
         case actionTypes.UPDATE_MENU_ITEM_AVAILABILITY_SUCCESS:
             console.log("update items id ",action.payload.id)

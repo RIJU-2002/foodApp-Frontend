@@ -24,7 +24,17 @@ export const getMenuItemByResturantId =(reqData)=>{
     return async (dispatch)=>{
         dispatch({type:GET_MENU_ITEM_BY_RESTURANT_ID_REQUEST});
         try {
-            const {data} =await api.get(`/api/food/resturant/${reqData.resturantId}?vegetarian=${reqData.vegetarian}
+            // if(reqData.vegetarian===undefined && reqData.seasonal===undefined && reqData.nonveg===undefined && reqData.foodCategory===undefined){
+            //     const {data} =await api.get(`/api/food/resturant/${reqData.resturantId}`,{
+            //         headers:{
+            //             Authorization:`Bearer ${reqData.jwt}`,
+            //         },
+            //     });
+            //     console.log("menu item by resturant ",data);
+            // dispatch({type:GET_MENU_ITEM_BY_RESTURANT_ID_SUCCESS,payload:data});
+            // }
+            // else{
+                const {data} =await api.get(`/api/food/resturant/${reqData.resturantId}?vegetarian=${reqData.vegetarian}
             &nonveg=${reqData.nonveg}&seasonal=${reqData.seasonal}&foodCategory=${reqData.foodCategory}`,{
                 headers:{
                     Authorization:`Bearer ${reqData.jwt}`,
@@ -32,6 +42,8 @@ export const getMenuItemByResturantId =(reqData)=>{
             });
             console.log("menu item by resturant ",data);
             dispatch({type:GET_MENU_ITEM_BY_RESTURANT_ID_SUCCESS,payload:data});
+            // }
+            
         } catch (error) {
             console.log("catch error ",error);
             dispatch({type:GET_MENU_ITEM_BY_RESTURANT_ID_FAILURE,payload:error});
