@@ -1,4 +1,4 @@
-import { CREATE_MENU_ITEM_FAILURE, CREATE_MENU_ITEM_REQUEST, CREATE_MENU_ITEM_SUCCESS, DELETE_MENU_ITEM_FAILURE, DELETE_MENU_ITEM_REQUEST, DELETE_MENU_ITEM_SUCCESS, GET_MENU_ITEM_BY_RESTURANT_ID_FAILURE, GET_MENU_ITEM_BY_RESTURANT_ID_REQUEST, GET_MENU_ITEM_BY_RESTURANT_ID_SUCCESS, SEARCH_MENU_ITEM_FAILURE, SEARCH_MENU_ITEM_REQUEST, SEARCH_MENU_ITEM_SUCCESS, UPDATE_MENU_ITEM_AVAILABILITY_FAILURE, UPDATE_MENU_ITEM_AVAILABILITY_REQUEST, UPDATE_MENU_ITEM_AVAILABILITY_SUCCESS } from "./actionType"
+import { CREATE_MENU_ITEM_FAILURE, CREATE_MENU_ITEM_REQUEST, CREATE_MENU_ITEM_SUCCESS, DELETE_MENU_ITEM_FAILURE, DELETE_MENU_ITEM_REQUEST, DELETE_MENU_ITEM_SUCCESS, GET_ALL_MENU_ITEM_FALIURE, GET_ALL_MENU_ITEM_REQUEST, GET_ALL_MENU_ITEM_SUCCESS, GET_MENU_ITEM_BY_RESTURANT_ID_FAILURE, GET_MENU_ITEM_BY_RESTURANT_ID_REQUEST, GET_MENU_ITEM_BY_RESTURANT_ID_SUCCESS, SEARCH_MENU_ITEM_FAILURE, SEARCH_MENU_ITEM_REQUEST, SEARCH_MENU_ITEM_SUCCESS, UPDATE_MENU_ITEM_AVAILABILITY_FAILURE, UPDATE_MENU_ITEM_AVAILABILITY_REQUEST, UPDATE_MENU_ITEM_AVAILABILITY_SUCCESS } from "./actionType"
 import {api} from '../../config/api'
 import { type } from "@testing-library/user-event/dist/type";
 
@@ -110,3 +110,20 @@ export const deleteFoodAction=({foodId,jwt})=>{
         }
     };
 };
+
+export const allFoodAction=({jwt})=>{
+    return async (dispatch)=>{
+        dispatch({type:GET_ALL_MENU_ITEM_REQUEST});
+        try {
+            const {data}=await api.get(`/api/food/search/all`,{
+                headers:{
+                    Authorization:`Bearer ${jwt}`,
+                },
+            });
+            console.log("all food ",data);
+            dispatch({type:GET_ALL_MENU_ITEM_SUCCESS,payload:data});
+        } catch (error) {
+            dispatch({type:GET_ALL_MENU_ITEM_FALIURE,payload:error});
+        }
+    }
+}

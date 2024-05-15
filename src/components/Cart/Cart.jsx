@@ -40,12 +40,17 @@ const initialValues={
 // })
 
 // const items=[1,1,]
+const AddressCards=[
+    {"PLACE":"HOME","ADDRESS":"15/C KOLKATA 700020"},
+    {"PLACE":"HOME","ADDRESS":"23/D HOWRAH 710020"}
+]
 
 const Cart = () => {
     const createOrderUsingSelectedAddress=()=>{};
     const handleOpenAddressModal=()=>{setOpen(true)};
     const [open, setOpen] = React.useState(false);
     const {cart,auth}=useSelector(store=>store)
+    console.log("cart",cart)
     const dispatch=useDispatch();
     const handleClose = () => {
         setOpen(false);
@@ -85,19 +90,11 @@ const Cart = () => {
                         <p>Rs {cart.cart?.total}</p>
                         {/* <p>Rs 99</p> */}
                     </div>
-                    <div className='flex justify-between text-gray-400'>
-                        <p>Delivery Fee</p>
-                        <p>Rs 40</p>
-                    </div>
-                    <div className='flex justify-between text-gray-400'>
-                        <p>GST and Resturant Charges</p>
-                        <p>Rs 49</p>
-                    </div>
                     <Divider/>
                 </div>
                 <div className='flex justify-between text-gray-400'>
                     <p>Total pay</p>
-                    <p>Rs {cart.cart?.total+40+49}</p>
+                    <p>Rs {cart.cart?.total}</p>
                     {/* <p>Rs 999</p> */}
                 </div>
             </div>
@@ -107,7 +104,7 @@ const Cart = () => {
             <div>
                 <h1 className='font-semibold text-2xl py-10'>Choose Delivery Address</h1>
                 <div className='flex gap-5 flex-wrap justify-center'>
-                    {[1,1,1,1,1].map((item)=>(<AddressCard handleSelectAddress={createOrderUsingSelectedAddress} 
+                    {AddressCards.map((item)=>(<AddressCard handleSelectAddress={createOrderUsingSelectedAddress} 
                     item={item} showButton={true}/>))}
                     <Card className='flex gap-5 w-64 p-5'>
                         <AddLocationAltIcon/>

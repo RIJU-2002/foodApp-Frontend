@@ -20,7 +20,7 @@ const ResturantCard = ({item}) => {
 
   const handleNavigationToResturant=()=>{
     if(item.open){
-      navigate(`/resturant/${item.address.city}/${item.name}/${item.id}`)
+      navigate(`/resturant/undefined/${item.name}/${item.id}`)
     }
   }
   return (
